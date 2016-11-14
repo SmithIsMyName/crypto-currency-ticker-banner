@@ -1,4 +1,4 @@
-﻿<html>
+<html>
 <head>
 	<title>Crypto Price Ticker</title>
 	<style type="text/css">
@@ -74,11 +74,9 @@
 				var $wrap = null;
 				settings.tickerID = $ticker[0].id;
 				$.fn.jStockTicker.settings[settings.tickerID] = {};
-
 				if ($ticker.parent().get(0).className != 'wrap') {
 					$wrap = $ticker.wrap("<div class='wrap'></div>");
 				}
-
 				var $tickerContainer = null;
 				if ($ticker.parent().parent().get(0).className != 'container') {
 					$tickerContainer = $ticker.parent().wrap(
@@ -135,7 +133,6 @@
 				$ticker.hover(stopTicker,startTicker);		
 				startTicker();
 			};
-
 			$.fn.jStockTicker.settings = {};
 			$.fn.jStockTicker.defaults = {
 				tickerID :null,
@@ -151,10 +148,9 @@
             setInterval(function() {StockPriceTicker();} , 60000);
         });
         function StockPriceTicker() {
-		var CompName = "", Price = "", Volume = "", PercentChangeInPrice = ""; 
+		var CompName = "", Price = "", Volume = "", PercentChange = ""; 
 		var poloniexAPI = "https://poloniex.com/public?command=returnTicker";
 		var StockTickerHTML = "";
-
 		var StockTickerJSON = $.getJSON(poloniexAPI, function(json) {
 			var items = [];
 			
@@ -176,7 +172,7 @@
 				
 				if (parseFloat(Volume) > 50) {	// Minimum volume in BTC/24h to get listed on carosile			
 					var PriceClass = "GreenText", PriceIcon="up_green";
-					if(parseFloat(PercentChangeInPrice) < 0) { PriceClass = "RedText"; PriceIcon="down_red"; }
+					if(parseFloat(PercentChange) < 0) { PriceClass = "RedText"; PriceIcon="down_red"; }
 					StockTickerHTML = StockTickerHTML + "<span class='" + PriceClass + "'>";
 					StockTickerHTML = StockTickerHTML + "<span class='quote'> | &nbsp" + CompName + ": " + parseFloat(Math.abs(Price)).toFixed(8)  + "</span> ";
 					StockTickerHTML = StockTickerHTML + " " + "<span class='" + PriceIcon + "'></span>" + " (";
